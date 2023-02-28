@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -22,8 +23,21 @@
                                 </div>
                                 <button class="btn btn-success">Išsaugoti pakeitimus</button>
                             </form>
+                        </div>
+                    </div>
 
-
+                    <div class="card mt-3">
+                        <div class="card-header"><b>{{ $owner->name }} {{ $owner->surname }}</b> priklausantys automobiliai</div>
+                        <div class="card-body">
+                            <table class="table">
+                                @foreach($owner->cars as $car)
+                                    <tr>
+                                        <td>
+                                            <b>{{ $car->brand }} {{ $car->model }}</b>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -31,3 +45,4 @@
         </div>
     </div>
 @endsection
+
