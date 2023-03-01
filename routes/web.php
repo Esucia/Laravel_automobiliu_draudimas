@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/owners',[OwnerController::class,'owners'])->name("owners.list");
-Route::get('/owners/create',[OwnerController::class,'create'])->name("owners.create");
-Route::post('/owners/store',[OwnerController::class,'store'])->name("owners.store");
-Route::get('/owners/{id}/update',[OwnerController::class,'update'])->name("owners.update");
-Route::post('/owners/{id}/save',[OwnerController::class,'save'])->name("owners.save");
-Route::get('/owners/{id}/delete',[OwnerController::class,'delete'])->name("owners.delete");
+Route::middleware('patikrinimas')->group(function (){
 
-Route::resource('cars', CarController::class);
+    Route::get('/owners',[OwnerController::class,'owners'])->name("owners.list");
+    Route::get('/owners/create',[OwnerController::class,'create'])->name("owners.create");
+    Route::post('/owners/store',[OwnerController::class,'store'])->name("owners.store");
+    Route::get('/owners/{id}/update',[OwnerController::class,'update'])->name("owners.update");
+    Route::post('/owners/{id}/save',[OwnerController::class,'save'])->name("owners.save");
+    Route::get('/owners/{id}/delete',[OwnerController::class,'delete'])->name("owners.delete");
 
+    Route::resource('cars', CarController::class)->middleware('auth');
+
+});
 
 Auth::routes();
 

@@ -1,4 +1,6 @@
 
+
+
 @extends('layouts.app')
 
 @section('content')
@@ -27,29 +29,41 @@
                                         <td>{{ $owner->name }}</td>
                                         <td>{{ $owner->surname }}</td>
                                         <td>
-                                            @foreach($owner->cars as $car)
-                                                {{ $car->brand }} {{ $car->model }} <br>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            <a href="{{ route("owners.update", $owner->id) }}" class="btn btn-success">Redaguoti</a>
-                                        </td>
-                                        <td>
-                                            @if ($owner->cars->count()==0)
-                                                <a href="{{ route("owners.delete", $owner->id) }}" class="btn btn-danger">Ištrinti</a>
+                                            @if (Auth::user()!==null)
+                                                @foreach($owner->cars as $car)
+                                                    {{ $car->brand }} {{ $car->model }} <br>
+                                                @endforeach
+                                            @else
+                                                <i>Rodoma tik prisijungus</i>
                                             @endif
                                         </td>
+                                        @if (Auth::user()!==null && Auth::user()->type=='admin')
+                                            <td>
+                                                <a href="{{ route("owners.update", $owner->id) }}" class="btn btn-success">Redaguoti</a>
+                                            </td>
+                                            <td>
+                                                @if ($owner->cars->count()==0)
+                                                    <a href="{{ route("owners.delete", $owner->id) }}" class="btn btn-danger">Ištrinti</a>
+                                                @endif
+                                            </td>
+                                        @else
+                                            <td><i>tik admin vartotojams</i></td>
+                                            <td><i>tik admin vartotojams</i></td>
+                                        @endif
+
                                     </tr>
                                 @endforeach
 
                                 </tbody>
                             </table>
-
-
                         </div>
+                    </div>
+                    <div class="mt-3">
+                        Komentarai: svarscikai
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+

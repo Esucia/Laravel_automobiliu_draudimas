@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Car;
+use App\Models\car;
 use App\Models\Owner;
 use Illuminate\Http\Request;
 
@@ -31,7 +31,7 @@ class OwnerController extends Controller
         $owner=Owner::find($id);
         return view("owners.update",[
             'owner'=>$owner,
-            'cars'=>Car::all()
+            'cars'=>car::all()
         ]);
     }
 
