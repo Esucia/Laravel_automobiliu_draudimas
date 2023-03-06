@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\car;
+use App\Models\Car;
 use App\Models\Owner;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,9 @@ class CarController extends Controller
      */
     public function index()
     {
-        //
+        return view("cars.index",[
+            'cars'=>Car::all()
+        ]);
     }
 
     /**
@@ -21,7 +23,9 @@ class CarController extends Controller
      */
     public function create()
     {
-        //
+        return view("cars.create",[
+            'owners'=>Owner::all()
+        ]);
     }
 
     /**
@@ -29,13 +33,15 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        dd($request->all());
+        Car::create($request->all());
+        return redirect()->route("cars.index");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(car $car)
+    public function show(Car $car)
     {
         //
     }
@@ -43,24 +49,32 @@ class CarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(car $car)
+    public function edit(Car $car)
     {
-        //
+        return view("cars.edit",[
+            "car"=>$car,
+            "owners"=>Owner::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, car $car)
+    public function update(Request $request, Car $car)
     {
-        //
+        $car->fill($request->all());
+        $car->save();
+        return redirect()->route("cars.index");
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(car $car)
+    public function destroy(Car $car)
     {
-        //
+        $car->delete();
+        return redirect()->route("cars.index");
+
     }
 }
