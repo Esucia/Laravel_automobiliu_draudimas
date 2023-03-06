@@ -13,13 +13,7 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string("reg_number",255);
-            $table->string("brand",100);
-            $table->string("model",100);
-            $table->foreignId("owner_id");
             $table->timestamps();
-
-            $table->foreign('owner_id')->references('id')->on('owners');
         });
     }
 
