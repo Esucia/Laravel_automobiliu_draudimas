@@ -1,6 +1,4 @@
 
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -12,7 +10,28 @@
                         <div class="card-header">Automobilių sąvininkai</div>
 
                         <div class="card-body">
-                            <a href="{{ route("owners.create") }}" class="btn btn-success float-end">Sukurti naują sąvininką</a>
+                            <div class="clearfix">
+                                <a href="{{ route("owners.create") }}" class="btn btn-success float-end">Sukurti naują sąvininką</a>
+                            </div>
+                            <hr>
+                            <form method="post" action="{{ route('owners.search') }}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Vardas</label>
+                                    <input class="form-control" type="text" value="{{ $name }}" name="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Pavardė</label>
+                                    <input class="form-control" type="text" value="{{ $surname }}" name="surname">
+                                </div>
+                                <button class="btn btn-info">Ieškoti</button>
+                            </form>
+                            <form class="mt-2" method="post" action="{{ route("owners.forget") }}">
+                                @csrf
+                                <button class="btn btn-info">Išvalyti paiešką</button>
+                            </form>
+                            <hr>
+
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -59,11 +78,12 @@
                         </div>
                     </div>
                     <div class="mt-3">
-                        Komentarai: svarscikai
+                        Komentarai: benzingalviai
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
 
