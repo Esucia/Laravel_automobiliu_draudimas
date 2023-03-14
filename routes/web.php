@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('patikrinimas')->group(function (){
+//Route::middleware('patikrinimas')->group(function (){
 
     Route::get('/',[OwnerController::class,'owners'])->name("owners.list");
     Route::get('/owners/create',[OwnerController::class,'create'])->name("owners.create");
@@ -37,7 +37,11 @@ Route::middleware('patikrinimas')->group(function (){
 
     });
 
-});
+//});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
